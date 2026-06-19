@@ -236,12 +236,6 @@ falls back gracefully, so you don't have to manage `RANK`/`MASTER_ADDR` yourself
 - **`KeyError: ROBOFLOW_API_KEY`** — copy `.env.example` to `.env` and fill it in.
 - **`config.yaml not found`** — copy `config.example.yaml` to `config.yaml`.
 
-## 🔒 Security
-
-No credentials are committed to this repository. `config.json` (Azure subscription),
-`config.yaml` (your resource names), and `.env` (Roboflow API key) are all **gitignored**
-and provided only as templates. Never commit real keys or subscription IDs.
-
 ## 📄 License
 
 Released under the [MIT License](LICENSE).
