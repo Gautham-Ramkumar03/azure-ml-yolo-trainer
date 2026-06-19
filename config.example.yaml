@@ -1,0 +1,63 @@
+# =============================================================================
+#  Pipeline configuration — copy this file to `config.yaml` and edit the values.
+#
+#  This is the ONE place you configure the whole pipeline. None of the scripts
+#  need to be edited; they all read from here. Your Azure ML *workspace* is
+#  configured separately in `config.json` (see config.json.template).
+# =============================================================================
+
+# ---- Compute clusters -------------------------------------------------------
+# List every GPU cluster you want to use, keyed by a short alias. `name` must
+# match the compute target name exactly as it appears in Azure ML Studio.
+#
+# Target any of them from the CLI, e.g.:
+#     python submit_job.py --cluster big
+#     python manage_cluster.py big status
+clusters:
+  default:
+    name: gpu-cluster          # <-- the compute target name in YOUR workspace
+    max_nodes: 4
+  # big:
+  #   name: gpu-cluster-a100
+  #   max_nodes: 8
+  # cheap:
+  #   name: gpu-cluster-t4
+  #   max_nodes: 2
+
+# Cluster alias used when --cluster is not passed.
+default_cluster: default
+
+# ---- Training environment ---------------------------------------------------
+# The conda spec below is registered as a reusable Azure ML environment.
+environment:
+  name: yolo-training-env
+  conda_file: conda.yml
+
+# ---- Dataset ----------------------------------------------------------------
+# `name`      -> the registered Azure ML dataset name used by training jobs.
+# `local_dir` -> local folder uploaded by upload_dataset.py (YOLO format with
+#                a data.yaml at its root).
+dataset:
+  name: my-dataset
+  local_dir: ./my-dataset
+
+# ---- Model & training -------------------------------------------------------
+# Works with ANY Ultralytics model, not just YOLOv8:
+#   detection:      yolov8n/s/m/l/x.pt, yolo11n/s/m/l/x.pt
+#   oriented boxes: yolov8m-obb.pt
+#   segmentation:   yolov8m-seg.pt
+#   classification: yolov8m-cls.pt
+#   custom:         path to your own .pt checkpoint
+training:
+  model: yolov8m.pt
+  epochs: 150
+  batch: 32
+  imgsz: 640
+  patience: 25
+  experiment: yolo-training    # Azure ML experiment name
+
+# ---- Distributed (multi-node) training --------------------------------------
+# Used by submit_distributed.py for multi-node DDP training over MPI.
+distributed:
+  node_count: 2
+  process_count_per_node: 4    # GPUs per node

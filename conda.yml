@@ -1,0 +1,25 @@
+# Training environment that runs ON the Azure ML compute cluster.
+# Registered as a reusable AML environment by register_env.py.
+# Edit versions here, then re-run `python register_env.py`.
+name: yolo-training-env
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pytorch=2.3.1
+  - torchvision=0.18.1
+  - torchaudio=2.3.1
+  - pytorch-cuda=11.8
+  - pip
+  - numpy
+  - matplotlib
+  - openmpi          # required for multi-node distributed training
+  - pip:
+      - ultralytics            # YOLOv8 / YOLO11 (detect, obb, seg, classify)
+      - opencv-python-headless
+      - roboflow
+      - mpi4py                 # Python bindings for MPI (distributed training)
+      - azureml-core

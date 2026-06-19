@@ -1,0 +1,8 @@
+# Local control-plane dependencies for driving the Azure ML pipeline.
+# (The training job itself runs in the conda environment defined in conda.yml.)
+azureml-core
+pyyaml
+python-dotenv
+roboflow
+ultralytics
+torch

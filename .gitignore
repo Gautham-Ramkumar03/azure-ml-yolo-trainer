@@ -1,0 +1,40 @@
+# Secrets / local config — never commit these
+.env
+config.json
+config.yaml
+
+# Datasets and model weights
+*.pt
+*.onnx
+datasets/
+downloaded_models/
+runs/
+outputs/
+# Local dataset folder (default config.yaml dataset.local_dir)
+my-dataset/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
